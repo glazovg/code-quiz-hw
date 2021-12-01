@@ -11,6 +11,7 @@ const gradeEl = document.createElement("p");
 
 let qn = 1;
 let secondsLeft = 300;
+let score = 0;
 
 //getScores();
 
@@ -63,6 +64,7 @@ function checkAnswer(event) {
         gradeEl.classList.add("grade")
         questionCard.appendChild(gradeEl);
         qn++;
+        score = score + 100;
         removeChilds(answerList)
         getQuestion();
     } else {

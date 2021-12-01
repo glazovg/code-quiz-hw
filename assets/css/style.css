@@ -8,7 +8,7 @@
 body {
     font-size: 30px;
     background:
-        url("https://professor-falken.com/wp-content/uploads/2017/03/Como-obtener-la-fecha-y-hora-actuales-en-Javascript-professor-falken.com_.jpg") no-repeat ;
+        url("https://professor-falken.com/wp-content/uploads/2017/03/Como-obtener-la-fecha-y-hora-actuales-en-Javascript-professor-falken.com_.jpg") no-repeat;
     background-size: cover;
 }
 
@@ -52,22 +52,38 @@ button:hover {
 
 ul {
     list-style: none;
+    padding: 20px;
+    margin: 10px;
 }
 
 li {
     border: var(--body-text-color);
     border-style: solid;
     margin: 10px;
+    background-color: var(--header-text-color);
+    color: var(--bg-color);
+    border-radius: 10px;
+    padding: 10px 5px 10px 25px;
 }
 
-.quiz div{
+.quiz {
+    display: flex;
+    justify-content: center;
+}
+
+.quiz p {
+    margin: 0;
+}
+
+.quiz div {
     display: flex;
     flex-direction: column;
     margin: 25px;
     padding: 35px;
     border: var(--body-text-color);
     border-style: solid;
-    max-width: 40%;
+    min-width: 70%;
+    border-radius: 10px;
 }
 
 .hide {
@@ -78,6 +94,13 @@ li {
     padding: 15px;
     margin: 50px;
     text-align: justify;
+}
+
+.grade {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    align-content: center;
 }
 
 #options {
@@ -112,6 +135,10 @@ li {
         padding: 40px 10px;
         font-size: 20px;
     }
+
+    .quiz div {
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width: 731px) {
@@ -139,5 +166,9 @@ li {
         margin: 5%;
         padding: 40px 10px;
         font-size: 20px;
+    }
+
+    .quiz div {
+        max-width: 100%;
     }
 }
