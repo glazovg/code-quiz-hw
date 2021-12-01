@@ -8,7 +8,12 @@ const questionCard = document.createElement("div");
 const questionEl = document.createElement("p");
 const answerList = document.createElement("ul");
 const gradeEl = document.createElement("p");
+const timeOverEl = document.createElement("img");
 const totalQuestions = Object.keys(quiz).length;
+
+questionCard.classList.add('question-card');
+timeOverEl.src = "assets/img/time-is-over.png";
+timeOverEl.alt = "Time is Over Image"
 
 let qn = 1;
 let secondsLeft = 225;
@@ -37,6 +42,7 @@ function startTimer() {
         if (secondsLeft === 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
+            timeOver();
         }
     }, 1000);
 }
@@ -44,13 +50,17 @@ function startTimer() {
 //Function to getQuestions
 function getQuestion() {
     setTimeout(function () {
+        if (qn > totalQuestions) {
+            //setScore();
+            return;
+        }
         let question = quiz[`q${qn}`]['q'];
         let totalAnswers = Object.keys(quiz[`q${qn}`]['ans']).length;
-
+        //const totalQuestions = Object.keys(quiz).length;
+        
         if (document.querySelector('.grade')) questionCard.removeChild(gradeEl);
-        if (qn > totalQuestions) gameOver();
 
-        questionEl.textContent = question
+        questionEl.textContent = question;
 
         for (let i = 1; i <= totalAnswers; i++) {
             let answerEl = document.createElement("li");
@@ -97,10 +107,23 @@ function removeChilds(parent) {
     }
 };
 
-//Game Over function
-function gameOver() {
+//timeOver function when time runs out elements are removed and replace for time over image
+function timeOver() {
+    setTimeout(function () {
+        questionCard.removeChild(gradeEl);
+        questionCard.removeChild(questionEl);
+        questionCard.removeChild(answerList);
+        questionCard.appendChild(timeOverEl);
+    }, 1000);
 
+    //setScore();
 }
+
+//setScore function to set user score
+
+
+//getScores function if there are scores stored are going to be shown in a link
+
 
 //On Start Quiz clicked
 startBtn.addEventListener("click", startQuiz);
