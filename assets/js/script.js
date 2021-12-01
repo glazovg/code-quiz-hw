@@ -2,28 +2,25 @@ let instructions = document.querySelector(".quiz-intro");
 let quizSection = document.querySelector(".quiz")
 let getScoresBtn = document.querySelectorAll("#options button")[0];
 let startBtn = document.querySelectorAll("#options button")[1];
+let timeEl = document.getElementById("time-left");
 
 const questionCard = document.createElement("div");
 const questionEl = document.createElement("p");
 const answerList = document.createElement("ul");
 const gradeEl = document.createElement("p");
-
+const totalQuestions = Object.keys(quiz).length;
 
 let qn = 1;
-let secondsLeft = 300;
+let secondsLeft = 225;
 let score = 0;
 
 //getScores();
 
 //Function to start Quiz
 function startQuiz(event) {
-    //startTimer();
+    startTimer();
 
     instructions.classList.add("hide");
-
-    const totalQuestions = Object.keys(quiz).length;
-
-
     quizSection.appendChild(questionCard);
     questionCard.appendChild(questionEl);
     questionCard.appendChild(answerList);
@@ -31,13 +28,27 @@ function startQuiz(event) {
     getQuestion();
 }
 
+//Timer function 
+function startTimer() {
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timeEl.textContent = `Time: ${secondsLeft}`;
+
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+        }
+    }, 1000);
+}
+
 //Function to getQuestions
 function getQuestion() {
     setTimeout(function () {
-        if(document.querySelector('.grade')) questionCard.removeChild(gradeEl)
-
         let question = quiz[`q${qn}`]['q'];
         let totalAnswers = Object.keys(quiz[`q${qn}`]['ans']).length;
+
+        if (document.querySelector('.grade')) questionCard.removeChild(gradeEl);
+        if (qn > totalQuestions) gameOver();
 
         questionEl.textContent = question
 
@@ -51,7 +62,7 @@ function getQuestion() {
                 el.addEventListener('click', checkAnswer)
             })
         }
-    }, 1000);
+    }, 500);
 }
 
 //Function to Check answer
@@ -73,7 +84,7 @@ function checkAnswer(event) {
         gradeEl.classList.add("grade")
         questionCard.appendChild(gradeEl);
         qn++;
-        secondsLeft = secondsLeft - 15;
+        secondsLeft = secondsLeft - 10;
         removeChilds(answerList)
         getQuestion();
     }
@@ -85,6 +96,11 @@ function removeChilds(parent) {
         parent.removeChild(parent.lastChild);
     }
 };
+
+//Game Over function
+function gameOver() {
+
+}
 
 //On Start Quiz clicked
 startBtn.addEventListener("click", startQuiz);
