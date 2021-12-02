@@ -1,25 +1,27 @@
 let instructions = document.querySelector(".quiz-intro");
-let quizSection = document.querySelector(".quiz")
+let timeEl = document.getElementById("time-left");
 let getScoresBtn = document.querySelectorAll("#options button")[0];
 let startBtn = document.querySelectorAll("#options button")[1];
-let timeEl = document.getElementById("time-left");
-
-const questionCard = document.createElement("div");
-const questionEl = document.createElement("p");
-const answerList = document.createElement("ul");
-const gradeEl = document.createElement("p");
-const timeOverEl = document.createElement("img");
-const totalQuestions = Object.keys(quiz).length;
+let scoreSection = document.querySelector(".score-section");
+let scoreEl = document.querySelector(".score-section p");
+let initialsInputEl = document.getElementById("initials-input");
+let saveScoreBtn = document.getElementById("save-score");
+let quizSection = document.querySelector(".quiz");
+let questionCard = document.createElement("div");
+let questionEl = document.createElement("p");
+let answerList = document.createElement("ul");
+let gradeEl = document.createElement("p");
+let timeOverEl = document.createElement("img");
+let totalQuestions = Object.keys(quiz).length;
 
 questionCard.classList.add('question-card');
 timeOverEl.src = "assets/img/time-is-over.png";
-timeOverEl.alt = "Time is Over Image"
+timeOverEl.alt = "Time is Over Image";
 
 let qn = 1;
 let secondsLeft = 225;
-let score = 0;
-
-//getScores();
+let points = 0;
+let timerInterval
 
 //Function to start Quiz
 function startQuiz(event) {
@@ -35,7 +37,7 @@ function startQuiz(event) {
 
 //Timer function 
 function startTimer() {
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = `Time: ${secondsLeft}`;
 
@@ -51,13 +53,15 @@ function startTimer() {
 function getQuestion() {
     setTimeout(function () {
         if (qn > totalQuestions) {
-            //setScore();
+            clearInterval(timerInterval);
+            timeEl.classList.add("hide")
+            scoreForm();
             return;
         }
+
         let question = quiz[`q${qn}`]['q'];
         let totalAnswers = Object.keys(quiz[`q${qn}`]['ans']).length;
-        //const totalQuestions = Object.keys(quiz).length;
-        
+
         if (document.querySelector('.grade')) questionCard.removeChild(gradeEl);
 
         questionEl.textContent = question;
@@ -85,7 +89,7 @@ function checkAnswer(event) {
         gradeEl.classList.add("grade")
         questionCard.appendChild(gradeEl);
         qn++;
-        score = score + 100;
+        points = points + 10;
         removeChilds(answerList)
         getQuestion();
     } else {
@@ -116,14 +120,38 @@ function timeOver() {
         questionCard.appendChild(timeOverEl);
     }, 1000);
 
-    //setScore();
+    scoreForm();
 }
 
 //setScore function to set user score
+function scoreForm(event) {
+    quizSection.classList.add("hide")
+    scoreSection.classList.remove("hide")
+    scoreEl.textContent = `Your total score is ${points} of 150 possible`
+}
 
+function storeScore(event) {
+    event.preventDefault();
+
+    let score = {
+        initials: initialsInputEl.value,
+        totalPoints: points
+    };
+
+    localStorage.setItem("quizScore", JSON.stringify(score));
+
+    getScores();
+}
 
 //getScores function if there are scores stored are going to be shown in a link
-
+function getScores() {
+    let lastScore = JSON.parse(localStorage.getItem("quizScore"));
+    if (lastScore !== null) {
+       
+    }
+}
 
 //On Start Quiz clicked
+getScoresBtn.addEventListener("click", getScores);
 startBtn.addEventListener("click", startQuiz);
+saveScoreBtn.addEventListener("click", storeScore);

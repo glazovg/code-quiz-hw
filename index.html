@@ -15,7 +15,6 @@
     <body>
         <header>
             <nav>
-                <div id="highest-score"></div>
                 <div id="time-left"></div>
             </nav>
         </header>
@@ -32,6 +31,16 @@
                 </div>
             </div>
             <div class="quiz"></div>
+            <div class="score-section hide">
+                <h3>Quiz done!</h3>
+                <p></p>
+                <div class="submit-section">
+                    <p>Enter initials
+                        <input id="initials-input" type="text">
+                        <button id="save-score">Submit</button>
+                    </p>
+                </div>
+            </div>
         </main>
 
         <script src="assets/js/quiz.js"></script>

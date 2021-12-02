@@ -14,8 +14,9 @@ body {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 25px;
+    font-weight: bold;
 }
 
 header {
@@ -34,11 +35,9 @@ button {
     background-color: var(--header-text-color);
     color: var(--bg-color);
     border: none;
-    width: 10%;
-    height: 20px;
     margin: 5%;
-    border-radius: 100px;
-    padding: 35px 1px;
+    border-radius: 50px;
+    padding: 20px;
     font-size: 20px;
     justify-content: center;
     align-items: center;
@@ -76,8 +75,19 @@ img {
     justify-content: center;
 }
 
+.score-section {
+    display: inherit;
+    justify-content: center;
+    text-align: center;
+    border: var(--body-text-color);
+    border-style: solid;
+    border-radius: 10px;
+    margin: 10px;
+}
+
 .question-card p {
     margin: 0;
+    font-weight: bold;
 }
 
 .question-card {
