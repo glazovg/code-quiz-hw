@@ -3,6 +3,7 @@ let timeEl = document.getElementById("time-left");
 let getScoresBtn = document.querySelectorAll("#options button")[0];
 let startBtn = document.querySelectorAll("#options button")[1];
 let scoreSection = document.querySelector(".score-section");
+let scoreBoardSection = document.querySelector(".score-board-section");
 let scoreEl = document.querySelector(".score-section p");
 let initialsInputEl = document.getElementById("initials-input");
 let saveScoreBtn = document.getElementById("save-score");
@@ -125,9 +126,9 @@ function timeOver() {
 
 //setScore function to set user score
 function scoreForm(event) {
-    quizSection.classList.add("hide")
-    scoreSection.classList.remove("hide")
-    scoreEl.textContent = `Your total score is ${points} of 150 possible`
+    quizSection.classList.add("hide");
+    scoreSection.classList.remove("hide");
+    scoreEl.textContent = `Your total score is ${points} of 150 possible`;
 }
 
 function storeScore(event) {
@@ -146,8 +147,12 @@ function storeScore(event) {
 //getScores function if there are scores stored are going to be shown in a link
 function getScores() {
     let lastScore = JSON.parse(localStorage.getItem("quizScore"));
-    if (lastScore !== null) {
-       
+
+    scoreSection.classList.add("hide");
+    scoreBoardSection.classList.remove("hide")
+
+    if (lastScore.totalPoints !== null) {
+        document.querySelector(".score").textContent = `${lastScore.initials}  -  ${lastScore.totalPoints}`
     }
 }
 

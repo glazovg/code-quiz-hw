@@ -75,7 +75,7 @@ img {
     justify-content: center;
 }
 
-.score-section {
+.score-section, .score-board-section{
     display: inherit;
     justify-content: center;
     text-align: center;
