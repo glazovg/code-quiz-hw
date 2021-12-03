@@ -125,7 +125,6 @@ function timeOver() {
 
     scoreSection.insertBefore(timeOverTitle, document.querySelector(".score-title"));
 
-    //timeEl.classList.add("hide")
     scoreForm();
 }
 
